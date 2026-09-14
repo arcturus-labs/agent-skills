@@ -1,6 +1,6 @@
 ---
 name: update-ai-model-frontier
-description: Retrieve Artificial Analysis model data and update per-company and combined cost-versus-quality Pareto frontiers, including API-key setup and a readable Markdown report.
+description: Retrieve Artificial Analysis model data and update per-company and combined cost-versus-quality Pareto frontiers, including API-key setup, reports and charts, and optional Pi or Oh My Pi model configuration.
 ---
 
 # Update AI model frontier
@@ -37,7 +37,7 @@ python3 /absolute/path/to/update-ai-model-frontier/scripts/plot_frontiers.py /ab
 
 Fetch each page once, then compute company frontiers sequentially from the same complete snapshot. Do not request the API separately for each company. Pagination is dynamic: never assume the first page or four pages is the entire catalogue. The script validates page sequence, duplicate IDs, total-page consistency, and index version before producing reports.
 
-The default cache lasts 24 hours. Report the snapshot timestamp even when reused. Use `--refresh` when a fresh fetch is requested; use `--snapshot path/to/snapshot.json` for reproducible offline regeneration. A refresh typically costs one request per page (four for the initial 646-record catalogue). AA currently documents 100 free requests per fixed 24-hour window shared by the relevant user/organisation quota scope. The script bounds transient retries, checks remaining quota, and stops on 429 with reset details. Do not repeatedly retry quota or authentication failures. It never silently substitutes stale cache after a failed refresh.
+The default cache lasts 24 hours. Report the snapshot timestamp even when reused. Use `--refresh` when a fresh fetch is requested; use `--snapshot path/to/snapshot.json` for reproducible offline regeneration. A refresh normally costs one request per page, plus any bounded retries. AA currently documents 100 free requests per fixed 24-hour window shared by the relevant user/organisation quota scope. The script bounds transient retries, checks remaining quota, and stops on 429 with reset details. Do not repeatedly retry quota or authentication failures. It never silently substitutes stale cache after a failed refresh.
 
 ## Results and recovery
 
@@ -57,7 +57,7 @@ Errors have actionable codes: `KEY_MISSING` → load/export the saved key or gui
 
 ## Follow-up questions and next action
 
-After presenting the report and embedding the plot, always ask a concise next-step question, such as: "What would you like to do next—update Pi with selected models, compare cost per task or latency, or explore another result?" This is an interactive handoff, not authorisation to modify Pi on a report-only run. If the user already requested a next action, complete it and then ask what comes next. Keep the accepted chart design unchanged unless requested otherwise.
+After presenting the report and embedding the plot, always ask a concise next-step question, such as: "What would you like to do next—update Pi or Oh My Pi with selected models, compare cost per task or latency, or explore another result?" This is an interactive handoff, not authorisation to modify an agent harness on a report-only run. If the user already requested a next action, complete it and then ask what comes next. Keep the default chart design unless the user requests a different presentation.
 
 Support questions from the same snapshot without spending additional API requests. Examples: "How much more does max thinking cost per benchmark task?", "Which frontier models respond fastest?", "Which thinking levels are missing?", and "What changes if we compare benchmark cost per task instead of token price?"
 
@@ -65,14 +65,13 @@ Retain the full API payload in `snapshot.json`, including records excluded from 
 
 `artificial_analysis_intelligence_index_cost.cost_per_task.total_cost` is AA's cost per Intelligence Index benchmark task in USD. It is neither a personalized task cost nor the 3:1 token-price blend. `performance.median_end_to_end_response_time_seconds` is standardized response latency (AA documents 500 answer tokens), not elapsed time to finish an Intelligence Index task. The cost and latency measurements describe different workloads. Other performance fields distinguish first-token delay, first-answer delay, and output throughput. Explain these limits when comparing metrics. Coverage varies by model and thinking level; do not place task-cost values on the existing token-price axis. Source: https://artificialanalysis.ai/data-api/docs.
 
-## When the user chooses Pi setup
+## Agent harness follow-up
 
-Use each selected company's own frontier, not just the combined frontier. This is an agent-guided follow-up; the report/chart scripts do not automatically modify Pi. Respect the user's provider and hosting preferences.
+For an authorised harness update, use each selected company's own frontier, not only the combined frontier. For a parity request, use the source harness's current selections and defaults rather than replacing them with a newly computed frontier. Respect provider/hosting preferences and preserve unrelated configuration.
 
-1. Inspect installed Pi docs and its current provider/model registry. `pi update --models` refreshes catalogues; it is different from upgrading Pi. Map AA records to verified provider API IDs and supported thinking settings. Do not guess IDs or assume a benchmark configuration is publicly available. When a model appears missing, check existing definitions, prior configuration backups, and the refreshed catalogue for naming mistakes, including reversed version numbers. Resolve an evident typo from corroborating evidence and explain the correction; ask only when multiple plausible models remain.
-2. A failed background catalogue refresh is not proof that a configured model is missing. Run `pi update --models` and `pi auth check --provider PROVIDER --json` in the shell that loads credentials. Inspect the cached model registry plus `models.json` and `enabledModels`; do not remove or rewrite a provider merely because Pi reports cached models. A clean `pi --verbose --no-session` should list the expected model scope. Pi captures `enabledModels` when the session starts, and `--models` is an explicit per-launch override, so an already-running or resumed session can show an older/narrower scope even after configuration is repaired. Start a fresh Pi session before changing configuration again.
-3. Treat catalogue availability, credential readiness, and generation access as distinct checks. A provider may list models while a live request fails for account balance, quota, tier, or provider outage; report that exact provider response without calling it a Pi configuration failure.
-4. Identify the actual host and required credential. Check the environment without displaying values, loading the user's saved shell environment in the same invocation when appropriate. Check alternate variable names and existing Pi OAuth access before concluding a key is absent. A creator's key does not automatically authenticate a third-party host. For missing credentials, give the exact variable and the provider's verified official key-creation page. Reference credentials through environment variables or the existing secure mechanism; never copy values into reports.
-5. If the user means downloading open weights, verify the repository/license, hardware, storage, and any gated-repository token. A hosted inference key is not required merely because the model also has an API.
-6. For authorised Pi changes, preserve unrelated configuration and credentials, make backups, merge verified model definitions, and add the requested company-frontier selections to `enabledModels` with supported thinking levels. Registration alone is insufficient: confirm every selected provider/model/thinking entry is in the enabled selections. This setting controls cycling and the picker's initial scoped view, not a strict access prohibition. Preserve the default unless changing it is requested or necessary to satisfy the requested selection.
-7. Verify discovery with `pi --list-models <search>` in the shell that loads the saved credentials, and separately inspect `enabledModels`; the listing alone does not prove inclusion in the scoped picker. For each newly added or repaired route, send a minimal live request through Pi at the configured thinking level, using `--no-session`, disabling tools, extensions, skills, prompt templates, and context files, and requesting a fixed short reply. Distinguish registered, authenticated, selected, and actually tested access. Report credential, permission, or provider failures explicitly rather than claiming success from valid JSON or a model listing. Tell the user to restart an already-running Pi session to load changed selections when needed.
+Read only the reference for the harness being configured:
+
+- [Pi setup and troubleshooting](references/pi.md): Pi's model registry, JSON configuration, scoped picker, credentials, and live verification.
+- [Oh My Pi setup and Pi parity](references/oh-my-pi.md): OMP's YAML providers, configuration interface, thinking compatibility, selection/default translation, and verification.
+
+The reference procedures are agent-guided; the frontier and chart scripts do not update either harness. A report-only or scheduled research run must not change harness configuration. If the user has already requested an update, complete it using the appropriate reference without asking again. Distinguish catalogue registration, scoped selection, credential readiness, and successful generation in the handoff.
