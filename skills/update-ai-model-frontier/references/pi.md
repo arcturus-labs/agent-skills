@@ -1,5 +1,7 @@
 # Pi model setup
 
+For direct Anthropic API access, also follow [Anthropic API setup](anthropic-api.md). An existing OAuth login is not a substitute when the user specifically requests API-key authentication.
+
 Use each selected company's own frontier, not just the combined frontier. This is an agent-guided follow-up; the report/chart scripts do not automatically modify Pi. Respect the user's provider and hosting preferences.
 
 1. Inspect installed Pi docs and its current provider/model registry. `pi update --models` refreshes catalogues; it is different from upgrading Pi. Map AA records to verified provider API IDs and supported thinking settings. Do not guess IDs or assume a benchmark configuration is publicly available. When a model appears missing, check existing definitions, prior configuration backups, and the refreshed catalogue for naming mistakes, including reversed version numbers. Resolve an evident typo from corroborating evidence and explain the correction; ask only when multiple plausible models remain.

@@ -1,5 +1,7 @@
 # Oh My Pi (OMP) model setup
 
+For direct Anthropic API access, also follow [Anthropic API setup](anthropic-api.md). Inspect credential precedence so an existing OAuth token does not silently replace the requested API-key route.
+
 Use this reference when configuring `omp` from frontier results or matching a working Pi setup. The report scripts do not modify OMP. Prefer the installed version's help/schema; these notes were exercised with OMP 18.1.21. Official references: [models](https://github.com/can1357/oh-my-pi/blob/main/docs/models.md) and [providers](https://github.com/can1357/oh-my-pi/blob/main/docs/providers.md).
 
 ## Inspect and map

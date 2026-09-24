@@ -67,11 +67,15 @@ Retain the full API payload in `snapshot.json`, including records excluded from 
 
 ## Agent harness follow-up
 
+When the user asks to add, enable, or allow models in an agent harness, apply and verify the actual scoped selections as part of that request. Updating this skill or registering a provider alone does not enable models. If they also request documentation changes, complete both tasks. A request explicitly limited to editing the skill remains documentation-only.
+
 For an authorised harness update, use each selected company's own frontier, not only the combined frontier. For a parity request, use the source harness's current selections and defaults rather than replacing them with a newly computed frontier. Respect provider/hosting preferences and preserve unrelated configuration.
 
 Read only the reference for the harness being configured:
 
 - [Pi setup and troubleshooting](references/pi.md): Pi's model registry, JSON configuration, scoped picker, credentials, and live verification.
 - [Oh My Pi setup and Pi parity](references/oh-my-pi.md): OMP's YAML providers, configuration interface, thinking compatibility, selection/default translation, and verification.
+
+For Claude models through the direct Anthropic API, also read [Anthropic API setup](references/anthropic-api.md). It covers `ANTHROPIC_API_KEY`, credential precedence, native provider routing, and frontier thinking-level mappings for either harness.
 
 The reference procedures are agent-guided; the frontier and chart scripts do not update either harness. A report-only or scheduled research run must not change harness configuration. If the user has already requested an update, complete it using the appropriate reference without asking again. Distinguish catalogue registration, scoped selection, credential readiness, and successful generation in the handoff.
