@@ -74,8 +74,9 @@ For an authorised harness update, use each selected company's own frontier, not 
 Read only the reference for the harness being configured:
 
 - [Pi setup and troubleshooting](references/pi.md): Pi's model registry, JSON configuration, scoped picker, credentials, and live verification.
+- [Pi Claude bridge](references/pi-claude-bridge.md): Claude Code subscription routing through `claude-bridge/...`, credential isolation, and verification.
 - [Oh My Pi setup and Pi parity](references/oh-my-pi.md): OMP's YAML providers, configuration interface, thinking compatibility, selection/default translation, and verification.
 
-For Claude models through the direct Anthropic API, also read [Anthropic API setup](references/anthropic-api.md). It covers `ANTHROPIC_API_KEY`, credential precedence, native provider routing, and frontier thinking-level mappings for either harness.
+For Claude models, choose the requested billing route before changing a harness. Read [Pi Claude bridge](references/pi-claude-bridge.md) for the Claude Code subscription route, or [Anthropic API setup](references/anthropic-api.md) for the direct, pay-as-you-go API route. They are distinct providers and must not be conflated.
 
 The reference procedures are agent-guided; the frontier and chart scripts do not update either harness. A report-only or scheduled research run must not change harness configuration. If the user has already requested an update, complete it using the appropriate reference without asking again. Distinguish catalogue registration, scoped selection, credential readiness, and successful generation in the handoff.

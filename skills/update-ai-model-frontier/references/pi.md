@@ -1,6 +1,6 @@
 # Pi model setup
 
-For direct Anthropic API access, also follow [Anthropic API setup](anthropic-api.md). An existing OAuth login is not a substitute when the user specifically requests API-key authentication.
+For Claude subscription access through the Claude Code bridge, follow [Pi Claude bridge](pi-claude-bridge.md). For direct, pay-as-you-go Anthropic API access, follow [Anthropic API setup](anthropic-api.md). They are separate providers. An existing OAuth login is not a substitute when the user specifically requests API-key authentication.
 
 Use each selected company's own frontier, not just the combined frontier. This is an agent-guided follow-up; the report/chart scripts do not automatically modify Pi. Respect the user's provider and hosting preferences.
 
@@ -11,3 +11,11 @@ Use each selected company's own frontier, not just the combined frontier. This i
 5. If the user means downloading open weights, verify the repository/license, hardware, storage, and any gated-repository token. A hosted inference key is not required merely because the model also has an API.
 6. For authorised Pi changes, preserve unrelated configuration and credentials, make backups, merge verified model definitions, and add the requested company-frontier selections to `enabledModels` with supported thinking levels. Registration alone is insufficient: confirm every selected provider/model/thinking entry is in the enabled selections. This setting controls cycling and the picker's initial scoped view, not a strict access prohibition. Preserve the default unless changing it is requested or necessary to satisfy the requested selection.
 7. Verify discovery with `pi --list-models <search>` in the shell that loads the saved credentials, and separately inspect `enabledModels`; the listing alone does not prove inclusion in the scoped picker. For each newly added or repaired route, send a minimal live request through Pi at the configured thinking level, using `--no-session`, disabling tools, extensions, skills, prompt templates, and context files, and requesting a fixed short reply. Distinguish registered, authenticated, selected, and actually tested access. Report credential, permission, or provider failures explicitly rather than claiming success from valid JSON or a model listing. Tell the user to restart an already-running Pi session to load changed selections when needed.
+
+## Reasoning-tier policy
+
+When a user requests this strategy, select thinking effort by model capability: use `low` for heavy flagship models, `medium` for balanced intermediate models, and `high` for compact, nano, and flash models. Set Pi's global fallback `defaultThinkingLevel` to `medium`.
+
+Classify models from their published role and the selected frontier, not merely their provider. Examples: full flagship families such as Opus or large flagship GPT variants are heavy; general-purpose Sonnet-class or lower-cost balanced models are intermediate; Haiku, Nano, small open-weight, and Flash variants are weak. Preserve `off` for models with no reasoning support.
+
+Always inspect the registered `thinkingLevelMap` before applying this policy. Do not invent an unsupported level. Record and explain any exception, using the closest lower supported level only when the user has requested this policy. Do not silently substitute a benchmark's named effort for a different provider-specific mechanism.
