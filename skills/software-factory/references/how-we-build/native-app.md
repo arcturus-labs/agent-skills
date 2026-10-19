@@ -1,6 +1,6 @@
-# Native applications
+# Native app
 
-Starting guidance; adapt to the target operating system, toolkit, and project.
+Starting guidance; adapt to the target operating system, toolkit, and project. For macOS, load [Mac applications](mac-applications.md) for concrete architecture, AppleScript/SDEF planning, observability, accessibility, and isolated product-QA guidance.
 
 - Identify UI/module boundaries, state ownership, persistence, and platform-specific behavior in `ARCHITECTURE/`.
 - Keep accessibility semantics usable for assistive technology and automation. On Apple platforms, consider stable accessibility identifiers for interactive controls; add equivalent platform affordances elsewhere.

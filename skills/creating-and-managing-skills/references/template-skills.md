@@ -34,28 +34,53 @@ This oneliner resolves the symlink, stages the skill inside its worktree repo, a
 
 At some point the diverged copies (e.g. `template_skills/worktrees/project-a/template_skills/software-factory` and `template_skills/worktrees/project-b/template_skills/software-factory`) are reintegrated into `template_skills/software-factory` on main. This is a semantic N-way merge, not a git merge, and it is driven by the user throughout: the agent researches and presents, the user decides what lands.
 
-The user starts it by saying it's time to recombine or reincorporate the learnings, however they phrase it. The ask may be wide open, or scoped to one skill, one project, or one aspect within a skill. Read the scope from what he said and research exactly what matches — all worktrees, or only the ones in scope.
+The user starts it by saying it's time to recombine or reincorporate the learnings, however they phrase it. The ask may be wide open, or scoped to one skill, one project, or one aspect within a skill. Read the scope from what they said and research exactly what matches — all worktrees, or only the ones in scope.
 
-### Research first
+The work happens in five steps:
+1. Research
+2. Presentation
+3. Conversation
+4. Merging and committing to main
+5. Redeploying
 
-Before proposing any edit, read the relevant worktree copies and their branch history. Commit messages carry the Change/Context/Rationale that explains each change, so read them: the user will ask about provenance and rationale, and you should be able to answer without going back to dig.
+The user may have special requests at any of these stages - honor them.
 
-Then present what you found, pre-grouped. Unless the user asks for something else, use this hierarchy:
+### Research
+
+Read the relevant worktree copies and their branch history. Commit messages carry the Change/Context/Rationale that explains each change, so read them: the user will ask about provenance and rationale, and you should be able to answer without going back to dig.
+
+### Presentation
+
+Present what you found, pre-grouped. Unless the user asks for something else, use this hierarchy:
 
 1. **By skill** — every in-scope change to that skill.
 2. **By semantic concept** — one entry per idea. Several projects may have made the same change in different words; a change may also be a singleton.
 3. **Details of that change** — fold in the variations, and call out differences and especially contradictions between projects. Keep the explanations concise.
 
+### Conversation
+
 This presentation is the starting point for a conversation, not a plan to execute. The user walks through the groups and tells you what to take, drop, reword, or combine. Some changes overlap, some are inconsistent, some are bad ideas — that judgment is the user's to make, though you should say so when you see a problem.
 
-### Writing the changes into main
+### Merging and committing to main
 
 Apply only what the user has agreed to, and rewrite rather than append. Reshape whatever text the change touches so it reads as a single coherent description of how things now work. No continuity commentary — don't note what the text used to say or that something changed, unless the history itself is genuinely useful to a reader. Someone reading the skill for the first time should never have to reconstruct its past.
 
 Goals while editing: reduce duplication, preserve the skill's overall structure, keep it organized, and keep it generic so it can redeploy.
 
+Before committing, review each changed file for obvious structural redundancy: the same instruction or substantially similar passage appearing in multiple places without a distinct purpose. Consolidate those passages in the most appropriate section, preserving their details and references. Keep useful reinforcement, summaries, and role-specific reminders; do not remove phrasing merely because it echoes another sentence.
+
 Once agent and user are satisfied, commit the result to main with a to-the-point but sufficient message — sections per change, each headed by the change with context and rationale in the body.
 
 ### Redeploying
 
-After the main commit, ask the user whether to push the result back out now — they may want to exclude a project. For each included project, merge main into its worktree branch (`git -C template_skills/worktrees/<project> merge main`); the symlinks pick up the update automatically.
+After the main commit, ask the user whether to push the result back out now, and whether to exclude any project — absent special instructions, the typical path is to merge main back into each included worktree branch. Never delete or clean up a worktree branch for this: it still backs the repos deployed from it.
+
+For each included project, first merge main into its worktree branch, noting the prior tip so the resulting diff is easy to isolate:
+
+```bash
+before="$(git -C template_skills/worktrees/<project> rev-parse HEAD)" \
+  && git -C template_skills/worktrees/<project> merge main \
+  && git -C template_skills/worktrees/<project> diff "$before" HEAD -- template_skills/<skill>
+```
+
+The merge may bring in changes that don't fit the deployed repo's current structure or content as-is. Spin up a sub-agent per project to read that diff (the sub-agent operates from the destination repo's directory, not the worktree, so it can view the same diff with `git -C template_skills/worktrees/<project> diff HEAD@{1} HEAD -- template_skills/<skill>`, using the reflog to reach the pre-merge tip), understand what just landed, and draft a plan for how the repo should adapt (e.g. renamed files it references, restructured sections, local content that now conflicts). Have the user review each project's plan one at a time; once approved, direct that project's sub-agent to apply the structural update in the repo and commit it to the worktree branch.

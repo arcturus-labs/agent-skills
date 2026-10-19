@@ -18,6 +18,12 @@ Worker: <identity>
 - Product QA: <what was operated/observed and evidence>
 - Limitations: <remaining caveats or none>
 
+## Hands-on walkthrough
+
+- Setup/start: <exact commands and isolated environment>
+- Try it: <representative inputs or interactions and expected observable behavior>
+- Inspect/stop: <commands or steps>
+
 ## Integration
 
 - Branch/commit/merge: <local integration evidence>

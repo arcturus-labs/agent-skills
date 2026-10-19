@@ -25,16 +25,16 @@ tags: []
 
 ## Planning artifacts
 
-Planning directory: <exact TASKS/WIP/<task>/ path; populated by orchestrator when planning begins>
+Planning directory: <exact TASKS/PLANNING/<task>/ path, set by the orchestrator when planning begins; updated to the dated TASKS/WIP/YYYY-MM-DD-<task>/ path at dispatch>
 
 ## Planning and implementation checklist
 
 - [ ] Review relevant PRODUCT/ and ARCHITECTURE/ guidance.
 - [ ] Orchestrator: create brainstorm.md and todos.md from templates, gather user details, and iterate inline Q&A until both parties agree the requirements and QA plan.
-- [ ] Orchestrator: populate the execution checklist and verify both WIP files before dispatch.
+- [ ] Orchestrator: after brainstorming is explicitly complete, populate the execution checklist; verify both planning files and move them to dated WIP at dispatch.
 - [ ] Worker: review all WIP documents, then implement the agreed task and maintain todos.md.
 - [ ] Run agreed tests and independent product QA.
-- [ ] Record outcome and evidence; update this card and link completed artifacts.
+- [ ] Record outcome and evidence; move WIP artifacts into `TASKS/COMPLETE/YYYY-MM-DD-<task>/` and archive this card there from `TASKS/KANBAN/`; update paths and links.
 
 ## Notes / activity
 

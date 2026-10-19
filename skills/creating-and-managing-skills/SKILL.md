@@ -15,7 +15,7 @@ Keep one canonical skills repo. Never home a skill in one agent's directory — 
 ## Layout
 
 - `skills/` — shared skills. Default everything here.
-- `harness/<agent>/` — only skills that depend on one harness's tools/APIs (today: `harness/pi/` with `brave-search`, `browser-tools`). Same-name harness skill overrides the shared one for that harness.
+- `harness/<agent>/` — only skills that depend on one harness's tools/APIs (for example, `harness/pi/`). Same-name harness skill overrides the shared one for that harness.
 - `template_skills/` — skills deployed into other projects where they diverge per project and are later recombined. One worktree branch per destination project under `template_skills/worktrees/<project>/`, named after the destination repo (a project may symlink several template skills). Full lifecycle: `references/template-skills.md`.
 - `scripts/sync-skills.py` — symlinks shared + harness skills into every harness below. **Run after adding, removing, or renaming skills** (edits need no sync; links share the files). Then restart agents.
 
@@ -34,6 +34,10 @@ Write for any harness unless the user says otherwise: plain markdown, relative p
 | Pi | `~/.pi/agent/skills` |
 | Claude Code | `~/.claude/skills` |
 | Codex CLI | `~/.codex/skills` (`.system` preserved) |
+
+The included sync script manages these three harnesses. If supporting additional
+harnesses, add their exposure rules to the script and verify discovery; do not
+assume they read another harness's directory.
 
 Verify links resolve to the intended source and `SKILL.md` reads through them. Report backups and `git status`; don't push unasked. Import-then-sync procedure and agent prompt: `SKILL-MAINTENANCE.md` at repo root.
 

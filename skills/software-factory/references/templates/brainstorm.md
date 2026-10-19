@@ -1,11 +1,11 @@
 # Brainstorm: <task title>
 
 Official task: <path or URL>
-Planning directory: `TASKS/WIP/<task>/`
+Planning directory: `TASKS/PLANNING/<task>/` (becomes `TASKS/WIP/YYYY-MM-DD-<task>/` at dispatch; the orchestrator updates this line then)
 Execution plan: [todos.md](./todos.md)
 Status: planning
 
-Orchestrator: gather initial details, inspect relevant code, and append numbered Q&A rounds at the end. User: answer questions inline. Preserve prior rounds, user wording, and unresolved concerns; a messy chronological record is fine. Continue until both parties agree implementation can proceed in isolation, then populate todos.md.
+Orchestrator: gather initial details, inspect relevant code, and append numbered Q&A rounds at the end. User: answer questions inline. Preserve prior rounds, user wording, and unresolved concerns; a messy chronological record is fine. Load the applicable how-we-build references for codebase-specific planning decisions. Continue until both parties agree implementation can proceed in isolation, then populate todos.md.
 
 ## Initial user details
 

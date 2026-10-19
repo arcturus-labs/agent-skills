@@ -22,9 +22,15 @@ Ensure the project has:
 - `PRODUCT/` for goals, behavior, and invariants.
 - `ARCHITECTURE/` for concise, component-oriented architecture documentation.
 - A root `AGENTS.md` with project-specific rules, commands, code structure, logging, and required QA affordances.
-- A root `BACKLOG.md` for lightweight quick capture, separate from the official task system.
+- A root `BACKLOG.md` for lightweight quick capture, separate from the official task system. If the project is complex enough to benefit from separating topics, use a `BACKLOG/` directory instead: `GENERAL.md` as the general dumping ground plus one topical file per area the user wants to keep independent.
 
 Use the templates in `references/templates/`. Preserve and reconcile useful existing documents; don't keep documents merely because they already exist. `PRODUCT/README.md` and `ARCHITECTURE/README.md` are terse indexes with links to the substantive docs, not places to duplicate them. Write product goals from user-approved understanding. For architecture, identify the actual major components from their purposes and responsibilities, then document them as described below; distinguish observed implementation from intended design and leave unresolved decisions open.
+
+### AGENTS.md and workflow ownership
+
+Reconcile new and existing root `AGENTS.md` files with [the template](templates/AGENTS.md). State that the `software-factory` skill owns workflow guidance, including planning, task tracking, delegation, worktrees, and integration. Keep project-specific invariants, commands, and QA affordances; remove duplicated workflow rules and resolve contradictions with the user rather than blindly deleting substantive constraints.
+
+State that the skill stays symlinked and gitignored, not vendored into the consuming project, and that skill edits are committed in the repository where the skill actually lives. Preserve the orchestrator-only macOS spoken-progress convention from the template and [orchestrator](orchestrator.md#spoken-progress-reports).
 
 ### Architecture documentation
 
@@ -39,19 +45,23 @@ Use the templates in `references/templates/`. Preserve and reconcile useful exis
 - Avoid duplication across component docs and README indexes. Prefer links to the owning component doc over restating details.
 - Use `references/templates/architecture-component.md` as a starting point; omit sections that do not apply. Review the result for clarity, brevity, and lack of redundancy.
 
-A root-level `scripts/` directory may be useful as a language-agnostic index of common project commands, but it is optional. Keep project scripts distinct from this skill's own support scripts.
+A root-level `scripts/` directory is the recommended convention for common project commands (see [how we build](how-we-build/README.md)): one index of runnable operations with a terse README, including a `run.sh` that starts/stops all services. Keep project scripts distinct from this skill's own support scripts.
 
 ## 3. Select the task system
 
 Discuss the user's existing system (for example, GitHub Issues, Jira, or Markdown files). Use its adapter if available; otherwise, stop and define the integration with the user. The generic contract and fallbacks are in [task management](task-management/README.md).
 
-If no task system exists, use the Markdown layout described there: official task cards under `TASKS/KANBAN/`, working artifacts under `TASKS/WIP/`, and completed artifacts under `TASKS/COMPLETE/`. The root `BACKLOG.md` remains quick capture, not an alternative official task board. Regardless of task system, the orchestrator creates `TASKS/WIP/<task>/brainstorm.md` and `todos.md` when fleshing out each task, links the directory from the official task, and completes the [planning Q&A procedure](orchestrator.md) before dispatch.
+Every task system uses local `TASKS/PLANNING/<task>/`, `TASKS/WIP/YYYY-MM-DD-<task>/` (dispatch date), and `TASKS/COMPLETE/YYYY-MM-DD-<task>/` for agent context. The orchestrator creates `brainstorm.md` and `todos.md` when planning begins, links the directory from the official task immediately, completes the [planning Q&A procedure](orchestrator.md), and moves the artifacts through that lifecycle. See the [shared task-management contract](task-management/README.md).
+
+If no task system exists, use official Markdown cards under `TASKS/KANBAN/` and the completion-card rules in the [Markdown adapter](task-management/directory-of-markdown-docs.md). External issues/tickets stay in their own system and link the local completion artifacts. The root `BACKLOG.md` (or `BACKLOG/` directory) remains quick capture, not an alternative official task board.
 
 ## 4. Select the worker mechanism
 
 Discuss how the current harness starts workers, exchanges context/questions/results, reports progress, and recovers interrupted work. Agree on concurrency and subworker permissions. Do not silently assume an adapter works: test uncertain behavior with harmless dummy jobs first. See [agent harnesses](agent-harness/README.md).
 
 ### Worktree setup
+
+These are the defaults unless the user explicitly chooses a [different workflow](../SKILL.md#user-directed-workflow).
 
 - Create `<repo>/.worktrees/` during project setup and add `/.worktrees/` to the repository's `.gitignore`. Commit the ignore rule with the approved setup changes; the empty directory itself is not tracked.
 - Each task uses `.worktrees/<task-name>` and branch `<task-name>`. Choose one filesystem- and Git-ref-safe task name and use it consistently; record its mapping to the official task and WIP directory.
@@ -65,4 +75,4 @@ Discuss testing approach, TDD, tracer-bullet implementation, logging, and how QA
 
 ## 6. Walk through the workflow
 
-Explain `PRODUCT/`, `ARCHITECTURE/`, task cards, `BACKLOG.md`, WIP artifacts, and worker roles in context. Answer questions and gently correct process misunderstandings when useful; avoid repeating process explanations unnecessarily.
+Explain `PRODUCT/`, `ARCHITECTURE/`, official tasks, the backlog, the PLANNING/WIP/COMPLETE artifact lifecycle, and worker roles in context. Answer questions and gently correct process misunderstandings when useful; avoid repeating process explanations unnecessarily.
