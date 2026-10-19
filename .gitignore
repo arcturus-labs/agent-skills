@@ -2,3 +2,8 @@
 __pycache__/
 *.py[cod]
 outputs/
+
+# Local worktrees and template activation
+/template_skills/worktrees/
+/.worktrees/
+/.agents/skills/software-factory

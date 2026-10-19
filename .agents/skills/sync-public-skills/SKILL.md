@@ -13,7 +13,7 @@ Resolve the destination from this skill's repository root. Locate the source che
 
 Read applicable `AGENTS.md` and maintenance instructions in both repositories; inspect Git status and preserve existing changes. Do not modify the source.
 
-Build an allowlist from destination directories already containing a `SKILL.md` under `skills/`, `harness/codex/`, `harness/claude/`, and `harness/pi/`. Match by the same relative directory in the source. Never import source-only skills, remove destination-only skills, or change harness placement automatically. Report missing counterparts. Adding a new public skill requires a separate explicit request.
+Build an allowlist from destination directories already containing a `SKILL.md` under `skills/`, `template_skills/`, `harness/codex/`, `harness/claude/`, and `harness/pi/`. Exclude `template_skills/worktrees/` and internal `.planning/` artifacts. Match by the same relative directory in the source. Preserve template skills under `template_skills/`; do not flatten them into globally exposed `skills/`. Never import source-only skills, remove destination-only skills, or change harness placement automatically. Report missing counterparts. Adding a new public skill requires a separate explicit request.
 
 Exclude `.agents/skills/`: it contains repository maintenance instructions, not distribution candidates. Never link public files to personal sources with symlinks or hard links.
 
