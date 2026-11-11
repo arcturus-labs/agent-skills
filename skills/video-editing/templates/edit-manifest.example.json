@@ -1,0 +1,39 @@
+{
+  "note": "Illustrative edit description, NOT a required renderer API. All ranges/copy are placeholders.",
+  "interval_convention": "half-open",
+  "output": {"width": 1920, "height": 1080, "fps": "25/1"},
+  "sources": "assets/sources.json",
+  "sequence": [
+    {
+      "id": "opening",
+      "type": "clip",
+      "source": "meeting-id",
+      "picture_layout": "speaker",
+      "audio_source": "meeting-id",
+      "start": 12.0,
+      "end": 18.5,
+      "first_words": "REPLACE",
+      "last_words": "REPLACE",
+      "reason": "Hook",
+      "picture_overlay": {"asset": "assets/branding/opening.png", "fade_out_start": 0.8, "fade_out_duration": 1.0}
+    },
+    {
+      "id": "bridge",
+      "type": "card",
+      "text": "Approved first thought.\n\nApproved second thought.",
+      "duration": 3.0,
+      "audio": "silence"
+    },
+    {
+      "id": "benefit",
+      "type": "stitch",
+      "parts": [
+        {"source": "meeting-id", "layout": "speaker", "start": 30.0, "end": 34.0},
+        {"source": "meeting-id", "layout": "speaker", "start": 36.0, "end": 39.5}
+      ],
+      "note": "Resolve actual word boundaries, gaps, attribution, and output mapping before rendering."
+    }
+  ],
+  "output_map": [],
+  "qa": {"decode": "pending", "seam_listen": "pending", "picture_review": "pending"}
+}
