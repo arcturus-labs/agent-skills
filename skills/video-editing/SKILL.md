@@ -26,12 +26,13 @@ an elaborate pipeline. This skill is standalone; resolve paths relative to here.
 | Mode | Read | Result |
 |---|---|---|
 | Discover / research | [Sources](references/sources.md), [transcription](references/transcription.md) | Complete transcript reading, topic map, candidates |
-| Audition / select | [Collaboration](references/collaboration.md), [player](references/player.md) | Numbered candidates, source playback, selections |
+| Audition / select | [Collaboration](references/collaboration.md), [auditioning](references/player.md) | Numbered candidates, clickable source links, selections |
 | Transcript workshop | [Collaboration](references/collaboration.md), [speech](references/speech.md) | Proposed spoken sequence and annotations |
 | Isolated stitch | [Speech](references/speech.md), [rendering](references/rendering.md) | Short **video** preview of an uncertain passage |
-| Assemble / revise | [Rendering](references/rendering.md), [cameras](references/cameras.md) | Versioned reel, topical cut, or long-form video |
+| Assemble / revise | [Build scripts](references/build-scripts.md), [rendering](references/rendering.md), [cameras](references/cameras.md) | Versioned reel, topical cut, or long-form video |
 | Graphics / transitions | [Graphics](references/graphics.md) | Approved cards, overlays, audio/picture transitions |
-| Cleanup / polish | [Speech](references/speech.md) | Selective filler, repetition, pause, and seam edits |
+| Cleanup / polish | [Cleanup](references/cleanup.md) (fillers, silences, stutters, irrelevant content), [speech](references/speech.md) | Approved cuts; ums/uhs, long pauses, repeats, and tangents removed; seams checked |
+| Browser review / spot-check | [Local reviewer](references/reviewer.md) | Project/draft browser, clickable transcript/chapters, timestamp links |
 | Verify / deliver | [Verification](references/verification.md) | Checked output, honest QA report, approved final |
 
 ## Collaboration defaults
@@ -95,6 +96,10 @@ draft is not automatically `final.mp4`.
 
 ## Optional tools, not a framework
 
+For convenient video review, use the [local reviewer](references/reviewer.md),
+bundled under `scripts/reviewer/`. It works with rendered videos and optional
+`review.json` metadata; source-assembly previews are deferred in [BACKLOG.md](BACKLOG.md).
+
 Python 3.10+ and FFmpeg/ffprobe suffice for the included helpers; see
 [scripts and rendering](references/rendering.md). Custom project scripts and
 simpler native commands are welcome. There is deliberately no universal renderer.
@@ -106,5 +111,5 @@ same limitation, silently migrate saved files, or rewrite helpers just to fit on
 project. A scoped project workaround can be proposed separately.
 
 No helper grants editorial approval. No dependency on other skills, fixed model
-IDs, particular provider SDKs, personal filesystem locations, or a local
-capability-discovery service is required.
+IDs, particular provider SDKs, personal filesystem locations, or a running Rook
+service is required.

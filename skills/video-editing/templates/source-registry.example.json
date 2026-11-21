@@ -1,19 +1,19 @@
 {
-  "note": "Example only. Replace paths and verify dates, offsets, and clock relationships. Resolve relative paths from the project root.",
+  "note": "Example only. Verify all dates, paths, offsets, and clock relationships.",
   "sources": {
     "meeting-id": {
       "event_date": "YYYY-MM-DD",
-      "event_note": "assets/source-notes.md",
+      "event_note": "/path/to/event-note.md",
       "layouts": {
-        "speaker": "assets/originals/speaker.mp4",
-        "gallery": "assets/originals/gallery.mp4",
-        "screen": "assets/originals/screen.mp4"
+        "speaker": "/path/to/speaker.mp4",
+        "gallery": "/path/to/gallery.mp4",
+        "screen": "/path/to/screen.mp4"
       },
-      "audio": "assets/originals/audio.m4a",
+      "audio": "/path/to/audio.m4a",
       "transcript": "assets/transcripts/meeting-id/transcript.json",
       "media_seconds_minus_transcript_seconds": 0,
       "shared_layout_clock_verified": false,
-      "alignment_evidence": "REPLACE with sampled positions and observations"
+      "alignment_evidence": "REPLACE with actual sampled positions and observations"
     }
   }
 }

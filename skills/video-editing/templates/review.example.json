@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "title": "Example draft",
+  "video": "video.mp4",
+  "transcript": "transcript-timed.json",
+  "chapters": [
+    {"time": 0, "title": "Opening"},
+    {"time": 15.5, "title": "Demonstration"}
+  ]
+}

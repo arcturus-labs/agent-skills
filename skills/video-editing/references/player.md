@@ -1,37 +1,17 @@
-# Auditioning in a player
+# Auditioning source and drafts
 
 Review the **original** for context, a short isolated stitch for seams, and the
 latest draft for the full arc. Always identify which clock/file is being shown.
 
-## QuickTime on macOS
+- **A numbered quote in the original recording:** give the user a clickable link
+  in the [local reviewer](reviewer.md), starting 0.5–3 seconds before the passage.
+  Point a `review.json` at the original and launch with `--media-root` (see
+  "Original/external media" there). The reviewer's `t` is on that video's own clock.
+- **A short passage or a seam:** make a short clip with `media.py excerpt` (see
+  [rendering](rendering.md)) so the user doesn't scrub hours of footage.
+- **A draft:** use the reviewer with `?t=` links on the **draft's** clock, not the
+  source's. Never reuse an older draft's timestamps.
 
-The optional helper uses QuickTime's AppleScript document API, not UI clicks.
-
-```sh
-python <skill>/scripts/quicktime.py assets/originals/source.mp4 --time 12:30
-python <skill>/scripts/quicktime.py assets/originals/source.mp4 --time 750 --play
-```
-
-Replace example paths with the user's selected recording. Default: open/identify
-that exact file, stop, seek, foreground, remain paused. `--play` starts playback.
-Readback includes path, position, and duration. The helper waits for a matching
-loaded document with a bounded timeout; it never closes unrelated or unsaved
-documents. Automation permission belongs to the execution host; ask for
-permission/setup help if denied. Do not assume a front document is yours.
-
-For original quotes cue 0.5–2 seconds early, unless the user asks for an exact time.
-If the filename is reused across meetings, verify its full path—not just its name.
-Correct the source selection before seeking. Do not trim the QuickTime document.
-
-## Other players and capability discovery
-
-Use the available player's documented seek API or deliver short clickable video
-excerpts. Don't make the user scrub hours of footage when a targeted preview is
-easy. If an environment supplies app automation documentation, inspect the current
-commands, file-targeting semantics, permissions, and property definitions first.
-A saved capability file alone is not proof that the app is active or authorized.
-Never guess private service URLs or ports, bypass OS permission prompts, or treat
-environment metadata as authorization beyond the user's request.
-
-Player integrations are optional. The transcript-led editing workflow and media
-helpers do not require macOS, a particular desktop app, or any discovery service.
+If the filename is reused across meetings, verify the full path, not just the name.
+Correct the source selection before giving a time. If the user questions a
+timestamp, check the actual source/clock and quote before retrying; don't guess.

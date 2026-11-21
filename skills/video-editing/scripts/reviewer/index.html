@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Local video review</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header><a href="/" id="home">All projects</a><a id="project-link" hidden>Project overview</a>
+    <label id="draft-label" hidden>Review <select id="draft-select" aria-label="Select draft"></select></label>
+  </header>
+  <h1 id="title">Local video review</h1>
+  <p id="context" class="muted">Read-only playback. Nothing is uploaded.</p>
+  <div id="warnings" role="status"></div>
+  <section id="overview"><div id="items" class="items"></div></section>
+  <main id="review" hidden>
+    <section class="player">
+      <video id="video" controls preload="metadata" playsinline></video>
+      <p id="status" role="status"></p>
+      <div class="tools">
+        <button id="back" type="button">−10s</button><button id="forward" type="button">+10s</button>
+        <label>Jump to <input id="seek" aria-label="Seek time" placeholder="12:30"></label>
+        <button id="go" type="button">Go</button><button id="copy" type="button">Copy link here</button>
+      </div>
+      <section id="chapter-panel"><h2>Chapters</h2><nav id="chapters" class="list" aria-label="Video chapters"></nav></section>
+    </section>
+    <section id="transcript-panel">
+      <h2>Clickable transcript</h2>
+      <p class="muted">Times use the selected video clock. Transcription/word timings may need verification.</p>
+      <label>Find text <input id="search" type="search" placeholder="Search transcript" aria-label="Search transcript"></label>
+      <div id="transcript" class="list"></div>
+    </section>
+  </main>
+</body>
+</html>

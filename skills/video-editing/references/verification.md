@@ -43,7 +43,8 @@ Record the latest artifact, decisions, and outstanding issues in `PROJECT.md`.
 
 Only place/copy the designated approved output at the project root as `final.mp4`
 after the user calls it final. Retain its draft/build provenance. Publishing is a
-separate authorized task. Chapters/captions must use the final **output clock**,
+separate authorized task. Chapters/captions must use the final **output clock** (write chapters per
+[build-scripts.md](build-scripts.md#chapters)),
 not source times; revisions invalidate old chapter mappings.
 
 Before pausing, leave a short handoff with source IDs, assets, draft, accepted and
